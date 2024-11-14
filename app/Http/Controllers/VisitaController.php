@@ -30,6 +30,8 @@ class VisitaController extends Controller
 
     public function crear(Request $request)
     {
+        //DD($request);
+        
         // Verifica si se han subido las imágenes
         $foto_techo_paths = $this->uploadFiles($request->file('foto_techo'), 'img/fotos');
         $foto_soporte_paths = $this->uploadFiles($request->file('foto_soporte'), 'img/fotos');
@@ -39,6 +41,7 @@ class VisitaController extends Controller
     
         // Guarda los datos en la base de datos
         $visita = new Visita();
+        DD($visita);
         $visita->fill($request->except([
             'foto_techo', 'foto_soporte', 'foto_bajante', 'foto_inversor', 'foto_tablero'
         ]));
@@ -48,7 +51,8 @@ class VisitaController extends Controller
         $visita->foto_bajante = json_encode($foto_bajante_paths);
         $visita->foto_inversor = json_encode($foto_inversor_paths);
         $visita->foto_tablero = json_encode($foto_tablero_paths);
-
+        
+        DD($visita);
     
         $visita->save();
     

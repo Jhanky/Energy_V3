@@ -119,7 +119,7 @@
             }
 
             const state = isChecked ? 'complete' : 'incomplete';
-            fetch(`/update-checklist-item/${cardId}/${checkItemId}`, {
+            fetch(`/public/update-checklist-item/${cardId}/${checkItemId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
