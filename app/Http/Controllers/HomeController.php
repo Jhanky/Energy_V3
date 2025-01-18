@@ -275,7 +275,7 @@ class HomeController extends Controller
             }
         }
 
-        if ($id == 3) {
+        if ($id == 2) {
             $metas_comerciales = DB::select('SELECT users.nombre, users.meta, SUM(presupuestos.presupuesto_total) AS total_presupuesto,(SUM(presupuestos.presupuesto_total) / users.meta) * 100 AS porcentaje_avance FROM presupuestos JOIN users ON presupuestos.id_user = users.id WHERE presupuestos.id_estado = 7 AND presupuestos.id_user = ' . $userID . ' GROUP BY users.nombre, users.meta;');
         } else {
             $metas_comerciales = DB::select('SELECT users.nombre, users.meta, SUM(presupuestos.presupuesto_total) AS total_presupuesto,(SUM(presupuestos.presupuesto_total) / users.meta) * 100 AS porcentaje_avance FROM presupuestos JOIN users ON presupuestos.id_user = users.id WHERE presupuestos.id_estado = 7 GROUP BY users.nombre, users.meta;');

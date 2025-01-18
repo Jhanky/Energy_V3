@@ -303,7 +303,7 @@ class PdfController extends Controller
 
         $presupuesto_letra = $this->convertirNumeroALetras($valor_redondeado);
 
-        $pdf = PDF::loadView('pdf.pdf', [
+        $pdf = PDF::download('pdf.pdf', [
             'cliente' => $cliente,
             'grafica_1' => $grafica_1,
             'grafica_2' => $grafica_2,

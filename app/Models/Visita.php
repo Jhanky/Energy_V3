@@ -45,6 +45,9 @@ class Visita extends Model
         'totalizador',
         'tipo_medidor',
         'tipo_medicion',
+        'notas_observaciones_tbl',
+        'spt',
+        'neutro',
     ];
 
     // Convierte campos JSON en arrays al acceder a ellos

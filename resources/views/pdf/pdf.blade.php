@@ -338,9 +338,6 @@
             <div style="text-align: center;">
                 <p style="text-align: center; font-size: 9pt;">Gráfica 5. Diseño preliminar sistema fotovoltaico de {{ number_format($results->first()->sugerida, 2, ',', '.') }}kWp {{ $results->first()->nombre }} - {{ $results->first()->ciudad }}, {{ $results->first()->departamento }}.</p>
             </div>
-            <div id="footer">
-                <img src="img/pie.png" alt="Imagen de pie de página">
-            </div>
         </div>
         <div id="footer">
             <img src="img/pie.png" alt="Imagen de pie de página">

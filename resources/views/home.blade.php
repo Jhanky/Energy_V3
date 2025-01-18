@@ -397,6 +397,9 @@ Dasboard
 @include('dashboard.comercial')
 @endif
 
+@if(auth()->user()->hasRole('TECNICO'))
+@include('dashboard.tecnico')
+@endif
 @endsection
 
 @section('scripts')

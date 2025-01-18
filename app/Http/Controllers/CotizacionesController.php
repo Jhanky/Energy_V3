@@ -14,8 +14,6 @@ use App\Models\Grafica;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
-use App\Exports\PropuestaExport;
-use Maatwebsite\Excel\Facades\Excel;
 
 class CotizacionesController extends Controller
 {
@@ -1312,11 +1310,6 @@ class CotizacionesController extends Controller
 
         // Retornamos las variables a la vista
         return $total_proyectos;
-    }
-
-    public function export() 
-    {
-        return Excel::download(new PropuestaExport, 'Presupuestos.xlsx');
     }
 
 }

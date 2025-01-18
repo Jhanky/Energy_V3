@@ -48,7 +48,7 @@
                         </div>
                         <div class="input-group input-group-outline my-3">
                             <label class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="password" name="password" require>
+                            <input type="password" class="form-control" id="password" name="password" required>
                         </div>
                         <div class="input-group input-group-outline my-3">
                             <label class="form-label">Confirmar contraseña</label>
