@@ -85,6 +85,7 @@ class ClienteController extends Controller
 
     public function eliminar($id)
     {
+        Presupuesto::where('id_cliente', $id)->delete();
         Cliente::where('NIC', $id)->delete();
         return redirect('/clientes')->with('msjdelete', 'Cliente borrado correctamente!...');
     }

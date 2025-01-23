@@ -1311,5 +1311,4 @@ class CotizacionesController extends Controller
         // Retornamos las variables a la vista
         return $total_proyectos;
     }
-
 }

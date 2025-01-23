@@ -17,28 +17,22 @@ class Pdf_actasController extends Controller
     {
         Carbon::setLocale('es');
 
-        // Aumentar el tiempo máximo de ejecución
-        set_time_limit(300);
-
         // Consultar el cliente específico por ID
         $visita = DB::select("SELECT * FROM `visitas` WHERE id ='$id'");
-        $fotos = DB::select("SELECT tipo, ruta FROM `fotos` WHERE id_visita = '$id'");
+        //DD($visita);
+        $fotos =DB::select("SELECT tipo, ruta FROM `fotos` WHERE id_visita = '$id'");
+        //DD($fotos);
 
         if (!$visita) {
             return redirect()->back()->withErrors('Cliente no encontrado.');
         }
         $datos = $visita[0];
-
-        // Ajustar las rutas de las imágenes
-        foreach ($fotos as $foto) {
-            $foto->ruta = storage_path('app/public/' . $foto->ruta);
-        }
-
+        //DD($datos);
         // Generar el PDF cargando la vista y pasando los datos
         $pdf = Pdf::loadView('pdf.acta_visita', [
             'visita' => $datos,
-            'fotos' => $fotos,
         ]);
+
 
         // Descargar el PDF con un nombre dinámico
         return $pdf->stream('Acta_de_visita_' . $id . '.pdf');

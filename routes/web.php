@@ -17,6 +17,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\UserSessionController;
 use App\Http\Controllers\Pdf_actasController;
+use App\Http\Controllers\EvidenciasController;
 
 Auth::routes();
 
@@ -25,7 +26,6 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['web', 'auth']], function () {
-
 
     //Pagina de inicio
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -69,7 +69,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     //Rutas de cotizaciones
     Route::get('/public/cotizaciones', [CotizacionesController::class, 'listar'])->name('cotizaciones.listar');
-    Route::get('/cotizacionesF', [CotizacionesController::class, 'listarFinaciado'])->name('cotizacionesF.listar');
+    Route::get('/public/cotizacionesF', [CotizacionesController::class, 'listarFinaciado'])->name('cotizacionesF.listar');
     Route::post('/cotizaciones/crear', [CotizacionesController::class, 'crear'])->name('cotizaciones.crear');
     Route::post('/cotizaciones/info/{id}', [CotizacionesController::class, 'info'])->name('cotizaciones.info');
     Route::post('/cotizaciones/descuento/{id}', [CotizacionesController::class, 'descuento'])->name('cotizaciones.descuento');
@@ -85,15 +85,15 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     //Rutas de Actas
     Route::get('/public/visitas', [ActaController::class, 'listar_visitas'])->name('visita.listar');
-    Route::get('/public/protocolo', [ActaController::class, 'listar_protocolo'])->name('protocolo.listar');
     Route::get('/public/entrega', [ActaController::class, 'listar_entrega'])->name('entrega.listar');
-    Route::get('/public/prestacion', [ActaController::class, 'listar_prestacion'])->name('prestacion.listar');
+    Route::get('/public/orden', [ActaController::class, 'listar_ordenes'])->name('orden.listar');
     Route::post('/visita/{id}/pdf', [Pdf_actasController::class, 'visita'])->name('pdf.visita');
     Route::post('/protocolo/{id}/pdf', [Pdf_actasController::class, 'protocolo'])->name('pdf.protocolo');
     Route::post('/entrega/{id}/pdf', [Pdf_actasController::class, 'entrega'])->name('pdf.entrega');
     Route::get('/public/visitas/formulario', [ActaController::class, 'formulario_visita'])->name('visita.formulario');
     Route::post('/visitas/crear', [ActaController::class, 'guardar_visita'])->name('visita.crear');
     Route::post('/visitas/info/{id}', [ActaController::class, 'info'])->name('visita.info');
+    Route::post('/ordenes/guardar', [ActaController::class, 'guardarOrden'])->name('ordenes.guardar');
 
     //Ruta de correos
     Route::get('/send-test-email', function () {
@@ -118,7 +118,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     //Monitoreo
     Route::get('/user-sessions', [UserSessionController::class, 'index'])->name('user.sessions');
-
     Route::get('/trello/test-connection', [ProyectoController::class, 'probarConexion']);
     Route::post('/update-checklist-item/{cardId}/{checkItemId}', [ProyectoController::class, 'updateChecklistItem'])->name('updateChecklistItem');
+
+    // Rutas de Evidencias
+    Route::get('/evidencias/{id}', [EvidenciasController::class, 'create'])->name('evidencias.form');
+    Route::post('/evidencias', [EvidenciasController::class, 'store'])->name('evidencias.store');
 });

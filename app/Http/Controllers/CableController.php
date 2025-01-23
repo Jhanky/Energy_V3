@@ -17,6 +17,7 @@ class CableController extends Controller
     public function listar()
     {
         $cables = Cable::all();
+        //DD($cables);
         $verificar = DB::select("SELECT id FROM cables LIMIT 1;");
 
         return view('cable.index', compact('cables', 'verificar'));
@@ -29,7 +30,6 @@ class CableController extends Controller
             'marca' => 'required',
             'precio' => 'required'
         ]);
-
         
         // Insertar datos en la tabla Paneles
         Cable::create($validateData);

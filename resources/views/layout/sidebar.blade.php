@@ -114,7 +114,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link custom-bg" href="#">
+                            <a class="nav-link custom-bg" href="/public/cables">
                                 <img
                                     src="https://img.freepik.com/fotos-premium/bobina-madera-cable-electrico-negro-aislado-fondo-blanco-ilustracion-3d_394271-247.jpg?w=30" />
                                 <span class="nav-link-text ms-1" style="color: black">Conductor fotovoltaico</span>
@@ -156,7 +156,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link custom-bg" href="/public/prestacion">
+                            <a class="nav-link custom-bg" href="/public/orden">
                                 <span class="nav-link-text ms-1" style="color: black">Ordenes de servicio</span>
                             </a>
                         </li>

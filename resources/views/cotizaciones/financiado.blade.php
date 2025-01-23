@@ -45,7 +45,6 @@ Cotizaciones
                         <table id="dataTable" class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-xxs text-secondary font-weight-bolder">Exportar</th>
                                     <th class="text-uppercase text-xxs text-secondary font-weight-bolder">Nombre del proyecto</th>
                                     <th class="text-center text-uppercase text-xxs text-secondary font-weight-bolder">Tipo de cliente</th>
                                     <th class="text-center text-uppercase text-xxs text-secondary font-weight-bolder">kW Cotizados</th>
@@ -61,9 +60,6 @@ Cotizaciones
                             <tbody>
                                 @foreach ($presupuestos as $result)
                                 <tr>
-                                    <td class="align-middle text-center text-sm">
-                                        <input class="form-checkbox-input" type="checkbox" name="selected_ids[]" value="{{ $result->id }}">
-                                    </td>
                                     <td>
                                         <div class="d-flex px-2 py-1">
                                             <div class="d-flex flex-column justify-content-center">
@@ -171,27 +167,6 @@ Cotizaciones
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="text-center mt-3">
-
-                            <button type="button" class="btn btn-info" id="exportButton">Exportar seleccionados</button>
-                        </div>
-                        <!-- Modal de advertencia -->
-                        <div class="modal fade" id="modal-warning" tabindex="-1" role="dialog" aria-labelledby="modal-warning" aria-hidden="true">
-                            <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <div class="py-3 text-center">
-                                            <img src="{{ asset('img/icons/flags/warning.png') }}" alt="Advertencia_icono" style="max-width: 90px; max-height: 90px;">
-                                            <h4 class="text-gradient text-danger mt-4">¡No ha seleccionado ninguna propuesta!</h4>
-                                            <p>Por favor, seleccione al menos un proyecto para exportar.</p>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>

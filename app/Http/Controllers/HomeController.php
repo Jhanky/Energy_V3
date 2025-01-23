@@ -281,11 +281,14 @@ class HomeController extends Controller
             $metas_comerciales = DB::select('SELECT users.nombre, users.meta, SUM(presupuestos.presupuesto_total) AS total_presupuesto,(SUM(presupuestos.presupuesto_total) / users.meta) * 100 AS porcentaje_avance FROM presupuestos JOIN users ON presupuestos.id_user = users.id WHERE presupuestos.id_estado = 7 GROUP BY users.nombre, users.meta;');
         }   
 
-        $primerResultado = $metas_comerciales[0];
-        //DD($primerResultado);
-        $avance = $primerResultado->total_presupuesto;
-
-        $porcentaje = ($avance * 100) / $primerResultado->meta;
+        if (!empty($metas_comerciales)) {
+            $primerResultado = $metas_comerciales[0];
+            $avance = $primerResultado->total_presupuesto;
+            $porcentaje = ($avance * 100) / $primerResultado->meta;
+        } else {
+            $avance = 0;
+            $porcentaje = 0;
+        }
 
         // Ejecutar la consulta para obtener los conteos por estado
         if ($id == 3) {

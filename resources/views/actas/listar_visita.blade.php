@@ -18,9 +18,7 @@
                         <h6 class="text-white text-capitalize ps-3 mb-0">Tabla de Visitas</h6>
                         <div class="me-3">
                             <!-- Button trigger modal -->
-                            @if (auth()->user()->hasRole('ADMINISTRADOR'))
                                 <a class="btn bg-gradient-info" href="/public/visitas/formulario">Registrar visita</a>
-                            @endif
                         </div>
                     </div>
                 </div>

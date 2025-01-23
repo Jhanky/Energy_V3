@@ -67,18 +67,16 @@
             background-color: #c1dfb4;
         }
 
-        .imagenes-sitio {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
         .imagenes-sitio img {
-            margin: 10px auto;
+            margin: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            display: block;
+        }
+
+        .imagenes-sitio {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
         }
     </style>
 </head>
@@ -169,12 +167,10 @@
             </p>
             <br>
             <br>
-                <div class="imagenes-sitio">
-                @foreach($fotos as $foto)
-                    @if($foto->tipo == 'techo')
-                        <img src="{{ $foto->ruta }}" alt="Foto del techo" width="540" height="275">
-                    @endif
-                @endforeach
+            <div class="imagenes-sitio">
+                <img src="img/test.png" alt="Imagen 1 de la instalación" width="305" height="200">
+                <img src="img/test.png" alt="Imagen 1 de la instalación" width="305" height="200">
+
             </div>
             <p>
                 Además de la medición del área, se realizó una inspección de los soportes del tejado para evaluar si
@@ -194,13 +190,7 @@
             <h3>3. Puntos de bajantes y distancia al inversor</h3>
             <p>El lugar de bajante será por Lugar y la distancia del recorrido es de x metros aproximadamente</p>
 
-            <div class="imagenes-sitio">
-                @foreach($fotos as $foto)
-                    @if($foto->tipo == 'bajante')
-                        <img src="{{ $foto->ruta }}" alt="Foto del bajante" width="305" height="200">
-                    @endif
-                @endforeach
-            </div>
+            <img src="img/test.png" alt="Imagen 1 de la instalación" width="600" height="355">
             <p style="font-size: 10pt;">
                 <b>Observaciones:</b> Las lecturas de consumo serán responsabilidad del operador de red, al igual
                 que la instalación
@@ -229,13 +219,8 @@
             </p>
 
             <h3>Fotografía del Área de Instalación</h3>
-            
             <div class="imagenes-sitio">
-                @foreach($fotos as $foto)
-                    @if($foto->tipo == 'inversor')
-                        <img src="{{ $foto->ruta }}" alt="Foto del inversor" width="305" height="200">
-                    @endif
-                @endforeach
+                <img src="img/test.png" alt="Fotografía del lugar de instalación" width="600" height="355">
             </div>
 
             <h3>Observaciones</h3>
@@ -300,13 +285,6 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="imagenes-sitio">
-                @foreach($fotos as $foto)
-                    @if($foto->tipo == 'tablero')
-                        <img src="{{ $foto->ruta }}" alt="Foto del tablero" width="305" height="200">
-                    @endif
-                @endforeach
-            </div>
         </div>
         <div id="footer">
             <img src="img/pie.png" alt="Pie de página">
