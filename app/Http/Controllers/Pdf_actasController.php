@@ -31,6 +31,7 @@ class Pdf_actasController extends Controller
         // Generar el PDF cargando la vista y pasando los datos
         $pdf = Pdf::loadView('pdf.acta_visita', [
             'visita' => $datos,
+            'fotos' => $fotos,
         ]);
 
 

@@ -168,9 +168,11 @@
             <br>
             <br>
             <div class="imagenes-sitio">
-                <img src="img/test.png" alt="Imagen 1 de la instalación" width="305" height="200">
-                <img src="img/test.png" alt="Imagen 1 de la instalación" width="305" height="200">
-
+                @foreach ($fotos as $foto)
+                    @if ($foto->tipo == 'instalacion')
+                        <img src="{{ public_path($foto->ruta) }}" alt="Imagen de la instalación" width="305" height="200">
+                    @endif
+                @endforeach
             </div>
             <p>
                 Además de la medición del área, se realizó una inspección de los soportes del tejado para evaluar si
@@ -190,7 +192,13 @@
             <h3>3. Puntos de bajantes y distancia al inversor</h3>
             <p>El lugar de bajante será por Lugar y la distancia del recorrido es de x metros aproximadamente</p>
 
-            <img src="img/test.png" alt="Imagen 1 de la instalación" width="600" height="355">
+            <div class="imagenes-sitio">
+                @foreach ($fotos as $foto)
+                    @if ($foto->tipo == 'instalacion')
+                        <img src="{{ public_path($foto->ruta) }}" alt="Imagen de la instalación" width="600" height="355">
+                    @endif
+                @endforeach
+            </div>
             <p style="font-size: 10pt;">
                 <b>Observaciones:</b> Las lecturas de consumo serán responsabilidad del operador de red, al igual
                 que la instalación
@@ -220,7 +228,11 @@
 
             <h3>Fotografía del Área de Instalación</h3>
             <div class="imagenes-sitio">
-                <img src="img/test.png" alt="Fotografía del lugar de instalación" width="600" height="355">
+                @foreach ($fotos as $foto)
+                    @if ($foto->tipo == 'instalacion')
+                        <img src="{{ public_path($foto->ruta) }}" alt="Fotografía del lugar de instalación" width="600" height="355">
+                    @endif
+                @endforeach
             </div>
 
             <h3>Observaciones</h3>
