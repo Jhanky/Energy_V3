@@ -136,7 +136,7 @@
             @if (auth()->user()->hasRole('ADMINISTRADOR') || auth()->user()->hasRole('TECNICO'))
                 <div class="dropdown">
                     <a href="#"
-                        class="nav-link text-white dropdown-toggle {{ Request::is('visitas', 'inversores', 'baterias', 'cables') ? 'active bg-gradient-success' : '' }}"
+                        class="nav-link text-white dropdown-toggle {{ Request::is('visitas', 'entrega', 'orden') ? 'active bg-gradient-success' : '' }}"
                         data-bs-toggle="dropdown" id="navbarDropdownMenuLink2">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">assignment</i>

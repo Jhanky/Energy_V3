@@ -86,26 +86,28 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     //Rutas de Actas
     Route::get('/visitas', [ActaController::class, 'listar_visitas'])->name('visita.listar');
     Route::get('/entrega', [ActaController::class, 'listar_entrega'])->name('entrega.listar');
-    Route::get('/orden', [ActaController::class, 'listar_ordenes'])->name('orden.listar');
+
     Route::post('/visita/{id}/pdf', [Pdf_actasController::class, 'visita'])->name('pdf.visita');
     Route::post('/protocolo/{id}/pdf', [Pdf_actasController::class, 'protocolo'])->name('pdf.protocolo');
     Route::post('/entrega/{id}/pdf', [Pdf_actasController::class, 'entrega'])->name('pdf.entrega');
     Route::get('/visitas/formulario', [ActaController::class, 'formulario_visita'])->name('visita.formulario');
     Route::post('/visitas/crear', [ActaController::class, 'guardar_visita'])->name('visita.crear');
     Route::post('/visitas/info/{id}', [ActaController::class, 'info'])->name('visita.info');
-    Route::post('/ordenes/guardar', [ActaController::class, 'guardarOrden'])->name('ordenes.guardar');
 
+    //Rutas de Ordenes
+    Route::post('/ordenes/guardar', [ActaController::class, 'guardarOrden'])->name('ordenes.guardar');
+    Route::get('/orden', [ActaController::class, 'listar_ordenes'])->name('orden.listar');
+    Route::delete('/ordenes/eliminar/{id}', [ActaController::class, 'eliminarOrden'])->name('ordenes.eliminar');
+
+    // Rutas de Evidencias
+    Route::get('/evidencias/{id}', [EvidenciasController::class, 'create'])->name('evidencias.form');
+    Route::post('/evidencias', [EvidenciasController::class, 'store'])->name('evidencias.store');
+    
     //Ruta de correos
     Route::get('/send-test-email', function () {
         Mail::to('jhaniluminati@gmail.com')->send(new TestEmail());
         return 'Correo de prueba enviado';
     });
-
-    //Ruta de exportacion de excel
-    Route::get('/cotizaciones/export', [CotizacionesController::class, 'export'])->name('data.export');
-
-    //Chat bot
-    Route::get('/chatbot', [ChatController::class, 'chat'])->name('chat');
 
     // Rutas de Proyectos
     Route::get('/proyectos', [ProyectoController::class, 'index'])->name('proyectos.index');
@@ -121,7 +123,5 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/trello/test-connection', [ProyectoController::class, 'probarConexion']);
     Route::post('/update-checklist-item/{cardId}/{checkItemId}', [ProyectoController::class, 'updateChecklistItem'])->name('updateChecklistItem');
 
-    // Rutas de Evidencias
-    Route::get('/evidencias/{id}', [EvidenciasController::class, 'create'])->name('evidencias.form');
-    Route::post('/evidencias', [EvidenciasController::class, 'store'])->name('evidencias.store');
+
 });

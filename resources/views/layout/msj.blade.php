@@ -43,4 +43,19 @@
         </button>
     </div>
     @endif
+
+    <!---msjs de error en la validación de archivos-->
+    @if($errors->has('foto'))
+    <div class="alert alert-danger alert-dismissible text-white fade show" role="alert">
+        <span class="alert-icon align-middle">
+          <span class="material-icons text-md">
+          error_outline
+          </span>
+        </span>
+        <span class="alert-text">{{ $errors->first('foto') }}</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
 </div>

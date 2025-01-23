@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Orden;
 use App\Models\Evidencia;
+use Intervention\Image\Facades\Image;
 
 class EvidenciasController extends Controller
 {
@@ -15,8 +16,6 @@ class EvidenciasController extends Controller
 
     public function store(Request $request)
     {
-        // ...existing code...
-
         $request->validate([
             'orden_id' => 'required|exists:ordenes,id',
             'observaciones' => 'required|string',
@@ -33,8 +32,15 @@ class EvidenciasController extends Controller
             // Verificar si los archivos han sido cargados correctamente
             foreach ($request->file('foto') as $index => $foto) {
                 if ($foto->isValid()) {
+                    // Redimensionar la imagen
+                    $image = Image::make($foto)->resize(780, 580, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    });
+
                     // Almacenar el archivo
                     $path = $foto->store('evidencias', 'public');
+                    $image->save(storage_path('app/public/' . $path));
                     $fotos[] = $path;
                 } else {
                     // Manejar el caso en que un archivo no es válido
@@ -55,7 +61,7 @@ class EvidenciasController extends Controller
         $orden->estado = 2;
         $orden->save();
     
-        return redirect()->route('orden.listar')->with('success', 'Evidencias subidas y orden terminada.');
+        return redirect()->route('orden.listar')->with('rgcmessage', 'Evidencias subidas y orden terminada.');
     }
     
 }

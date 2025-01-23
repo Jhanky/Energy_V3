@@ -127,6 +127,11 @@
                                                         Ver evidencias
                                                     </button>
                                                 </li>
+                                                <li style="margin-left: 30px; margin-right: 30px">
+                                                    <button type="button" class="btn bg-gradient-danger" data-bs-toggle="modal" data-bs-target="#modal-notification-{{ $orden->id }}">
+                                                        Eliminar orden
+                                                    </button>
+                                                </li>
                                             </ul>
                                             <div class="modal fade" id="detallesModal{{ $orden->id }}" tabindex="-1"
                                                 aria-labelledby="detallesModalLabel{{ $orden->id }}" aria-hidden="true">
@@ -183,7 +188,7 @@
                                                                                 for="formFile{{ $orden->id }}">Adjuntar
                                                                                 fotos</label>
                                                                             <input name="foto[]" type="file"
-                                                                                id="formFile{{ $orden->id }}" multiple>
+                                                                                id="formFile{{ $orden->id }}" multiple style="display: none;">
 
                                                                         </div>
                                                                     </div>
@@ -219,8 +224,8 @@
                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <p><strong>Observaciones:</strong> {{ $orden->observaciones }}
-                                                            </p>
+                                                            <p class="text-start"><strong>Detalles de la orden:</strong> {{ $orden->observaciones }}</p>
+                                                            <p class="text-start"><strong>Notas de la orden:</strong> {{ $orden->observaciones }}</p>
                                                             @if (isset($orden->evidencias) &&
                                                                     is_array(json_decode($orden->evidencias)) &&
                                                                     count(json_decode($orden->evidencias)) > 0)
@@ -250,6 +255,7 @@
                                                                         <span class="visually-hidden">Next</span>
                                                                     </button>
                                                                 </div>
+                                                                <p>Evidencias fotograficas</p>
                                                             @else
                                                                 <p>No hay evidencias disponibles.</p>
                                                             @endif
@@ -257,6 +263,27 @@
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Cerrar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal fade" id="modal-notification-{{ $orden->id }}" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+                                                <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-body">
+                                                            <div class="py-3 text-center">
+                                                                <img src="{{ asset('img/icons/flags/borrar.gif') }}" alt="Eliminar_icono" style="max-width: 90px; max-height: 90px;">
+                                                                <h4 class="text-gradient text-danger mt-4">¡Desea eliminar esta orden!</h4>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                            <form action="{{ route('ordenes.eliminar', $orden->id) }}" method="POST" style="display: inline-block; margin-right: 5px;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn bg-gradient-danger">Eliminar</button>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
