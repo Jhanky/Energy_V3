@@ -27,6 +27,10 @@
             align-items: center;
             margin-bottom: 10px;
         }
+        .custom-modal .modal-body {
+  text-align: left;
+}
+
     </style>
 @endsection
 
@@ -133,28 +137,32 @@
                                                     </button>
                                                 </li>
                                             </ul>
-                                            <div class="modal fade" id="detallesModal{{ $orden->id }}" tabindex="-1"
+                                            <div class="modal fade custom-modal" id="detallesModal{{ $orden->id }}" tabindex="-1"
                                                 aria-labelledby="detallesModalLabel{{ $orden->id }}" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title"
-                                                                id="detallesModalLabel{{ $orden->id }}">Detalles de la
-                                                                Orden</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
+                                                            <h5 class="modal-title" id="detallesModalLabel{{ $orden->id }}">Detalles de la Orden</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <p><strong>Observaciones:</strong> {{ $orden->observaciones }}
-                                                            </p>
+                                                            <p><strong>Observaciones:</strong> {{ $orden->observaciones }}</p>
+                                                            <h5 class="modal-title" id="detallesModalLabel{{ $orden->id }}">Lista de herramientas</h5>
+                                                            <ul>
+                                                                <li>Taladro</li>
+                                                                <li>Taladro</li>
+                                                                <li>Taladro</li>
+                                                                <li>Taladro</li>
+                                                                <li>Taladro</li>
+                                                            </ul>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Cerrar</button>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            
                                             <!-- Modal Evidencias -->
                                             <div class="modal fade" id="evidenciasModal{{ $orden->id }}" tabindex="-1"
                                                 aria-labelledby="evidenciasModalLabel{{ $orden->id }}"
@@ -225,7 +233,7 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <p class="text-start"><strong>Detalles de la orden:</strong> {{ $orden->observaciones }}</p>
-                                                            <p class="text-start"><strong>Notas de la orden:</strong> {{ $orden->observaciones }}</p>
+                                                            <p class="text-start"><strong>Notas de la orden:</strong> {{ $orden->notas }}</p>
                                                             @if (isset($orden->evidencias) &&
                                                                     is_array(json_decode($orden->evidencias)) &&
                                                                     count(json_decode($orden->evidencias)) > 0)
@@ -233,12 +241,11 @@
                                                                     class="carousel slide" data-bs-ride="carousel">
                                                                     <div class="carousel-inner">
                                                                         @foreach (json_decode($orden->evidencias) as $index => $evidencia)
-                                                                            <div
-                                                                                class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                                                                <img src="{{ asset('storage/' . $evidencia) }}"
-                                                                                    class="d-block w-100" alt="...">
-                                                                            </div>
-                                                                        @endforeach
+                                                                        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                                                            <img src="{{ asset('storage/' . $evidencia) }}" class="d-block w-100" alt="Evidencia {{ $index + 1 }}">
+                                                                        </div>
+                                                                    @endforeach
+                                                                    
                                                                     </div>
                                                                     <button class="carousel-control-prev" type="button"
                                                                         data-bs-target="#carouselEvidencias{{ $orden->id }}"

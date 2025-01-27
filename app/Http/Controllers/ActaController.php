@@ -67,6 +67,7 @@ class ActaController extends Controller
         $tecnicos = DB::select('SELECT u.id, u.name FROM users AS u JOIN model_has_roles as m ON u.id = m.model_id WHERE m.role_id = 3;');
         $clientes = DB::select("SELECT * FROM `clientes` ORDER by id DESC;");
 
+        //DD($ordenes);
         return view('actas.ordenes.listar_orden', compact('tecnicos', 'clientes', 'ordenes'));
     }
 

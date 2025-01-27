@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\Orden;
 use App\Models\Evidencia;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class EvidenciasController extends Controller
 {
@@ -16,6 +17,7 @@ class EvidenciasController extends Controller
 
     public function store(Request $request)
     {
+        //DD($request->all());
         $request->validate([
             'orden_id' => 'required|exists:ordenes,id',
             'observaciones' => 'required|string',
@@ -27,28 +29,7 @@ class EvidenciasController extends Controller
         $evidencia->observaciones = $request->observaciones;
     
         if ($request->hasFile('foto')) {
-            $fotos = [];
-            
-            // Verificar si los archivos han sido cargados correctamente
-            foreach ($request->file('foto') as $index => $foto) {
-                if ($foto->isValid()) {
-                    // Redimensionar la imagen
-                    $image = Image::make($foto)->resize(780, 580, function ($constraint) {
-                        $constraint->aspectRatio();
-                        $constraint->upsize();
-                    });
-
-                    // Almacenar el archivo
-                    $path = $foto->store('evidencias', 'public');
-                    $image->save(storage_path('app/public/' . $path));
-                    $fotos[] = $path;
-                } else {
-                    // Manejar el caso en que un archivo no es válido
-                    return back()->withErrors(['foto' => 'Hubo un error con uno o más archivos.']);
-                }
-            }
-    
-            // Guardar las rutas de las fotos en la base de datos
+            $fotos = $this->uploadFiles($request->file('foto'), 'evidencias');
             $evidencia->ruta = json_encode($fotos);
         } else {
             $evidencia->ruta = json_encode([]); // Sin fotos
@@ -62,6 +43,25 @@ class EvidenciasController extends Controller
         $orden->save();
     
         return redirect()->route('orden.listar')->with('rgcmessage', 'Evidencias subidas y orden terminada.');
+    }
+
+    private function uploadFiles($files, $path)
+    {
+        $uploadedPaths = [];
+
+        // Crear la carpeta si no está creada
+        if (!Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->makeDirectory($path);
+        }
+
+        if ($files && is_array($files)) {
+            foreach ($files as $file) {
+                $uploadedPaths[] = $file->store($path, 'public');
+            }
+        } elseif ($files) { // Manejo de un solo archivo (por si no es un array)
+            $uploadedPaths[] = $files->store($path, 'public');
+        }
+        return $uploadedPaths;
     }
     
 }
