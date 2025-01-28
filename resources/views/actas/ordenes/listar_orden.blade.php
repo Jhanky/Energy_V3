@@ -149,11 +149,12 @@
                                                             <p><strong>Observaciones:</strong> {{ $orden->observaciones }}</p>
                                                             <h5 class="modal-title" id="detallesModalLabel{{ $orden->id }}">Lista de herramientas</h5>
                                                             <ul>
-                                                                <li>Taladro</li>
-                                                                <li>Taladro</li>
-                                                                <li>Taladro</li>
-                                                                <li>Taladro</li>
-                                                                <li>Taladro</li>
+                                                                <ul>
+                                                                    @foreach(explode(',', $orden->herramientas) as $herramienta)
+                                                                        <li>{{ trim($herramienta) }}</li>
+                                                                    @endforeach
+                                                                </ul>
+                                                                
                                                             </ul>
                                                         </div>
                                                         <div class="modal-footer">
