@@ -102,7 +102,17 @@
                                             <p class="text-xs font-weight-bold mb-0">{{ $orden->fecha_hora }}</p>
                                         </td>
                                         <td class="fila_estado" style="text-align: center;">
-                                            <button type="button" class="btn btn-secondary">Pendiente</button>
+                                            @php
+                                                $data = $orden->estado;
+                                                if ($data == 1) {
+                                                    $estado = 'Pendiente';
+                                                    $buttonClass = 'btn btn-secondary';
+                                                } else {
+                                                    $estado = 'Terminada';
+                                                    $buttonClass = 'btn bg-gradient-success';
+                                                }
+                                            @endphp
+                                            <button type="button" class="{{ $buttonClass }}">{{ $estado }}</button>
                                         </td>
                                         <td class="align-middle text-center">
                                             <button class="btn bg-gradient-secondary dropdown-toggle" type="button"
@@ -118,11 +128,12 @@
                                                     </button>
                                                 </li>
                                                 <li style="margin-left: 30px; margin-right: 30px">
-                                                    <button type="button" class="btn bg-gradient-success"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#evidenciasModal{{ $orden->id }}">
-                                                        Subir evidencias
-                                                    </button>
+                                                    @if ($data == 1)
+                                                        <button type="button" class="btn bg-gradient-success" data-bs-toggle="modal"
+                                                            data-bs-target="#evidenciasModal{{ $orden->id }}">
+                                                            Subir evidencias
+                                                        </button>
+                                                    @endif
                                                 </li>
                                                 <li style="margin-left: 30px; margin-right: 30px">
                                                     <button type="button" class="btn bg-gradient-warning"

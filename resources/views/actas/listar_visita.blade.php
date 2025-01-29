@@ -66,6 +66,14 @@
                                                     Descargar<i class="material-icons opacity-10">download</i>
                                                 </button>
                                             </form>
+                                            <form action="{{ route('visita.eliminar', ['id' => $visita->id]) }}"
+                                                method="POST" style="display: inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">
+                                                    Eliminar<i class="material-icons opacity-10">delete</i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

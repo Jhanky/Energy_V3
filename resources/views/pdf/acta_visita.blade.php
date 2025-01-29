@@ -160,25 +160,20 @@
                 $area = $visita->ancho * $visita->largo;
             @endphp
             <p>
-                El área disponible para la instalación de paneles solares es de <b>{{ $area }} m&sup2;</b>, distribuida en
-                dimensiones de
-                {{ $visita->ancho }}  m x {{ $visita->largo }}  m. La superficie es de loza. A continuación, se adjuntan imágenes que ilustran las
-                condiciones del sitio:
+                El área disponible para la instalación de paneles solares es de <b>{{ $area }} m&sup2;</b>, con
+                dimensiones de {{ $visita->ancho }} m x {{ $visita->largo }} my una superficie de loza. Además de la
+                medición del área, se inspeccionaron los soportes del tejado para evaluar la necesidad de refuerzos
+                estructurales ({{ $visita->refuerzo }}) o una sobreestructura
+                adicional({{ $visita->sobre_estructura }}). A continuación, se adjuntan imágenes que muestran las
+                condiciones del sitio.
             </p>
-            <br>
-            <br>
             <div class="imagenes-sitio">
                 @foreach ($fotos as $foto)
-                    @if ($foto->tipo == 'instalacion')
-                        <img src="{{ public_path($foto->ruta) }}" alt="Imagen de la instalación" width="305" height="200">
+                    @if ($foto->tipo == 'techo')
+                        <img src="{{ $foto->ruta }}" alt="Imagen de la instalación" width="600" height="330">
                     @endif
                 @endforeach
             </div>
-            <p>
-                Además de la medición del área, se realizó una inspección de los soportes del tejado para evaluar si
-                es necesario
-                implementar refuerzos({{ $visita->refuerzo }}) o una sobreestructura adicional({{ $visita->sobre_estructura }}).
-            </p>
 
         </div>
         <div id="footer">
@@ -190,21 +185,18 @@
         <div id="header"></div>
         <div class="contenido">
             <h3>3. Puntos de bajantes y distancia al inversor</h3>
-            <p>El lugar de bajante será por Lugar y la distancia del recorrido es de x metros aproximadamente</p>
+            <p>El lugar de bajante será por {{ $visita->opcion_1 }} y la distancia del recorrido es de
+                {{ $visita->distancia_1 }} metros aproximadamente</p>
 
             <div class="imagenes-sitio">
                 @foreach ($fotos as $foto)
-                    @if ($foto->tipo == 'instalacion')
-                        <img src="{{ public_path($foto->ruta) }}" alt="Imagen de la instalación" width="600" height="355">
+                    @if ($foto->tipo == 'bajante')
+                        <img src="{{ $foto->ruta }}" alt="Imagen de la instalación" width="600" height="355">
                     @endif
                 @endforeach
             </div>
             <p style="font-size: 10pt;">
-                <b>Observaciones:</b> Las lecturas de consumo serán responsabilidad del operador de red, al igual
-                que la instalación
-                del medidor bidireccional. La empresa brindará acompañamiento en la gestión de los trámites
-                correspondientes ante el
-                operador de red.
+                <b>Observaciones:</b> {{ $visita->notas_observaciones_bajantes }}
             </p>
         </div>
         <div id="footer">
@@ -215,34 +207,26 @@
     <div class="pagina">
         <div id="header"></div>
         <div class="contenido">
-            <h3>Distancia del Tablero Fotovoltaico al Tablero Principal</h3>
+            <h3>Información sobre la Instalación</h3>
             <p>
-                La distancia aproximada desde el tablero fotovoltaico al tablero principal es de <b>x metros</b>.
+                La distancia aproximada entre el tablero fotovoltaico y el tablero principal es de
+                <b>{{ $visita->distancia_tfv }} metros</b>.
+                El inversor se instalará en <b>{{ $visita->notas_observaciones_tbl }}</b>, un espacio que cumple con
+                las condiciones mínimas para garantizar una instalación segura y eficiente.
             </p>
 
-            <h3>Área para la Instalación del Inversor</h3>
-            <p>
-                El lugar seleccionado para la instalación del inversor será <b>especificar lugar aquí</b>.
-                Este lugar cumple con las condiciones mínimas requeridas para la instalación segura y eficiente.
-            </p>
-
-            <h3>Fotografía del Área de Instalación</h3>
-            <div class="imagenes-sitio">
+            <div class="imagenes-sitio" style="text-align: center; font-size: 14px;">
+                <p>Imagen del lugar de instalación del inversor</p>
                 @foreach ($fotos as $foto)
-                    @if ($foto->tipo == 'instalacion')
-                        <img src="{{ public_path($foto->ruta) }}" alt="Fotografía del lugar de instalación" width="600" height="355">
+                    @if ($foto->tipo == 'inversor')
+                        <img src="{{ $foto->ruta }}" alt="Fotografía del lugar de instalación" class="img-inversor"
+                            width="600" height="355">
                     @endif
                 @endforeach
             </div>
 
-            <h3>Observaciones</h3>
-            <p>
-                Las lecturas de consumo serán responsabilidad del operador de red, al igual que la instalación del
-                medidor bidireccional.
-                La empresa brindará acompañamiento en la gestión de los trámites correspondientes ante el operador de
-                red.
-            </p>
         </div>
+
         <div id="footer">
             <img src="img/pie.png" alt="Pie de página">
         </div>
@@ -251,55 +235,110 @@
     <div class="pagina">
         <div id="header"></div>
         <div class="contenido">
-
             <h4>Revisión del Tablero Existente</h4>
+
+            <p>Foto del tablero</p>
+            <div class="imagen-tablero" style="margin-bottom: 20px; text-align: center;">
+                @foreach ($fotos as $foto)
+                    @if ($foto->tipo == 'tablero')
+                        <img src="{{ $foto->ruta }}" alt="Fotografía del lugar de instalación" class="img-inversor"
+                            width="550" height="325">
+                    @endif
+                @endforeach
+            </div>
+
             <table width="100%" cellspacing="0" style="border-collapse: collapse; margin-bottom: 20px;">
                 <tbody>
                     <tr>
                         <td class="fondo negrita">Tipo de Red</td>
                         <td>{{ $visita->tipo_red }}</td>
-                    </tr>
-                    <tr>
                         <td class="fondo negrita">Espacio para los breakers</td>
                         <td>{{ $visita->espacio_breaker }}</td>
                     </tr>
                     <tr>
                         <td class="fondo negrita">Espacio para el breaker de inyección solar</td>
                         <td>{{ $visita->espacio_ct }}</td>
-                    </tr>
-                    <tr>
                         <td class="fondo negrita">Cuenta con puesta a tierra</td>
                         <td>{{ $visita->spt }}</td>
                     </tr>
                     <tr>
                         <td class="fondo negrita">Cuenta con neutro</td>
                         <td>{{ $visita->neutro }}</td>
-                    </tr>
-                    <tr>
                         <td class="fondo negrita">Calibre de Cable de fase</td>
-                        <td>{{ $visita->calibre_cable }} AWG</td>
+                        <td>{{ $visita->calibre_cable }}</td>
                     </tr>
                     <tr>
                         <td class="fondo negrita">Calibre de Cable de tierra</td>
                         <td>{{ $visita->largo }} AWG</td>
-                    </tr>
-                    <tr>
                         <td class="fondo negrita">Totalizador (Capacidad en Amperios)</td>
                         <td>{{ $visita->totalizador }} A</td>
                     </tr>
                     <tr>
                         <td class="fondo negrita">Tipo de medidor</td>
-                        <td>{{ $visita->tipo_medidor }} A</td>
-                    </tr>
-                    <tr>
-                        <td class="fondo negrita">Tipo de medicion</td>
-                        <td>{{ $visita->tipo_medicion }} A</td>
+                        <td>{{ $visita->tipo_medidor }}</td>
+                        <td class="fondo negrita">Tipo de medición</td>
+                        <td>{{ $visita->tipo_medicion }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
         <div id="footer">
             <img src="img/pie.png" alt="Pie de página">
+        </div>
+    </div>
+
+    <div class="pagina">
+        <div id="header"></div>
+        <div class="contenido">
+            <h3>Conclusión de la Visita</h3>
+            <p>
+                En conclusión, la visita técnica realizada ha permitido identificar las condiciones actuales del sitio y las necesidades específicas para la instalación del sistema fotovoltaico. Agradecemos su colaboración y quedamos atentos a cualquier consulta adicional.
+            </p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div style="text-align: left; margin-top: 20px;">
+                <h3>Firma de Recepción</h3>
+                <p>
+                    Nombre del receptor: _______________________________________
+                </p>
+                <p>
+                    Firma: _______________________________________
+                </p>
+                <p>
+                    Fecha: _______________________________________
+                </p>
+            </div>
+        </div>
+        <div id="footer">
+            <img src="img/pie.png" alt="Pie de página">
+       
         </div>
     </div>
 </body>
