@@ -331,9 +331,11 @@ class PdfController extends Controller
             'presupuesto_letra' => $presupuesto_letra,
             'year_letras' => $year_letras
         ]);
+
+        $nombre = $results->first()->nombre_proyecto;
         // Guardar grafica en drive
         // necesito guardarlo y no visualizarlo
-        return $pdf->stream('Presupuesto ' . $id . '.pdf');
+        return $pdf->download($nombre. '.pdf');
     }
 
     public function convertirNumeroALetras($numero)
