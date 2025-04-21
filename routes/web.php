@@ -13,7 +13,7 @@ use App\Http\Controllers\BateriaController;
 use App\Http\Controllers\CableController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActaController;
-use App\Http\Controllers\ChatController;
+use App\Http\Controllers\VisitaController;
 use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\UserSessionController;
 use App\Http\Controllers\Pdf_actasController;
@@ -84,15 +84,16 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('/presupuestos/info/{id}/pdf', [PdfController::class, 'descargarPDF'])->name('pdf.pdf');
 
     //Rutas de Actas
-    Route::get('/visitas', [ActaController::class, 'listar_visitas'])->name('visita.listar');
+    Route::get('/visitas', [VisitaController::class, 'listar_visitas'])->name('visita.listar');
     Route::get('/entrega', [ActaController::class, 'listar_entrega'])->name('entrega.listar');
 
     Route::post('/visita/{id}/pdf', [Pdf_actasController::class, 'visita'])->name('pdf.visita');
     Route::post('/protocolo/{id}/pdf', [Pdf_actasController::class, 'protocolo'])->name('pdf.protocolo');
     Route::post('/entrega/{id}/pdf', [Pdf_actasController::class, 'entrega'])->name('pdf.entrega');
-    Route::get('/visitas/formulario', [ActaController::class, 'formulario_visita'])->name('visita.formulario');
-    Route::post('/visitas/crear', [ActaController::class, 'guardar_visita'])->name('visita.crear');
-    Route::post('/visitas/info/{id}', [ActaController::class, 'info'])->name('visita.info');
+    Route::get('/visitas/formulario', [VisitaController::class, 'formulario_visita'])->name('visita.formulario');
+    Route::post('/visitas/crear', [VisitaController::class, 'guardar_visita'])->name('visita.crear');
+    Route::post('/visitas/info/{id}', [VisitaController::class, 'info'])->name('visita.info');
+    Route::delete('/visitas/eliminar/{id}', [VisitaController::class, 'eliminar_visita'])->name('visita.eliminar');
 
     //Rutas de Ordenes
     Route::post('/ordenes/guardar', [ActaController::class, 'guardarOrden'])->name('ordenes.guardar');

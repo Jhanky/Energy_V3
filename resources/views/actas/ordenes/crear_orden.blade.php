@@ -20,17 +20,9 @@
                             <div class="input-group input-group-outline my-3">
                                 <select id="tipo" name="tipo" class="form-control" onchange="toggleInput()">
                                     <option disabled selected>Tipo de orden</option>
-                                    <option value="Mantenimiento">Mantenimiento</option>
-                                    <option value="Limpieza de paneles">Limpieza de paneles</option>
-                                    <option value="Configurar inversor">Configurar inversor</option>
-                                    <option value="Revisión instalaciones">Revisión instalaciones</option>
-                                    <option value="Montaje sistema FV">Montaje sistema FV</option>
-                                    <option value="Sobreestructura">Sobreestructura</option>
-                                    <option value="Estructura">Estructura</option>
-                                    <option value="Cableado DC">Cableado DC</option>
-                                    <option value="Bajantes">Bajantes</option>
-                                    <option value="Tablero de protecciones">Tablero de protecciones</option>
-                                    <option value="Conexión AC">Conexión AC</option>
+                                    @foreach ($tipos_orden as $tipo)
+                                        <option value="{{ $tipo->nombre }}">{{ $tipo->nombre }}</option>
+                                    @endforeach
                                     <option value="Otro">Otra...</option>
                                 </select>
                             </div>

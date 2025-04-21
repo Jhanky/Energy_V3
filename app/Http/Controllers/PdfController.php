@@ -14,9 +14,9 @@ class PdfController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function descargarPDF(Request $request, $id)
     {
-
         Carbon::setLocale('es');
         // consultar los datos ne la base de datos
         $cliente = DB::table('presupuestos')
@@ -195,6 +195,7 @@ class PdfController extends Controller
             }
         });
 
+        
         $mensajesErrores = [];
 
         // Imagen 1
@@ -253,6 +254,11 @@ class PdfController extends Controller
             return Redirect::back()->with('mensajesErrores', $mensajesErrores);
         }
 
+        // Verificar si las variables necesarias están definidas
+        if (!isset($grafica_1, $grafica_2, $grafica_3, $grafica_4, $design_5)) {
+            return Redirect::back()->with('error', 'Faltan datos necesarios para generar el PDF.');
+        }
+
         $ahorro_anuales = $this->energia_anual($id);
         $energia_anual = $this->energia_anual($id);
         $primer_resultado = !empty($energia_anual) ? $energia_anual[0] : null;
@@ -303,7 +309,8 @@ class PdfController extends Controller
 
         $presupuesto_letra = $this->convertirNumeroALetras($valor_redondeado);
 
-        $pdf = PDF::download('pdf.pdf', [
+        //DD($grafica_1);
+        $pdf = PDF::loadView('pdf.pdf', [
             'cliente' => $cliente,
             'grafica_1' => $grafica_1,
             'grafica_2' => $grafica_2,
@@ -324,9 +331,11 @@ class PdfController extends Controller
             'presupuesto_letra' => $presupuesto_letra,
             'year_letras' => $year_letras
         ]);
+
+        $nombre = $results->first()->nombre_proyecto;
         // Guardar grafica en drive
         // necesito guardarlo y no visualizarlo
-        return $pdf->stream('Presupuesto ' . $id . '.pdf');
+        return $pdf->download($nombre. '.pdf');
     }
 
     public function convertirNumeroALetras($numero)
@@ -376,7 +385,7 @@ class PdfController extends Controller
                 $resultado .= ' ' . $this->convertirNumeroALetras($numero % 1000000);
             }
         }
-
+        //DD($resultado);
         return $resultado;
     }
 
