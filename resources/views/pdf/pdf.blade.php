@@ -273,13 +273,6 @@
                             <td>Paneles solares de alta calidad y mayor durabilidad, con respaldo nacional e internacional, captan la energía del sol generando energía directa.</td>
                         </tr>
 
-                        @if($results->first()->valor_sobreestructura != 0)
-                        <tr>
-                            <td>Sobreestructura</td>
-                            <td>Protege al sistema fotovoltaico de sobretensiones y daños a inversores o equipos de la planta fotovoltaica.</td>
-                        </tr>
-                        @endif
-
                         <tr>
                             <td>Sistemas de protección DC y AC</td>
                             <td>Protege al sistema fotovoltaico de sobretensiones y daños a inversores o equipos de la planta fotovoltaica.</td>
