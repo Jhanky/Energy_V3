@@ -449,7 +449,6 @@ class PdfController extends Controller
 
         foreach ($meses as $mes => $porcentaje) {
             $resultado = $energia * ($porcentaje / 100);
-
             $resultados[] = [
                 'mes' => $mes,
                 'porcentaje' => $porcentaje,
